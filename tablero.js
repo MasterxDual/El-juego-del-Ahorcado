@@ -24,6 +24,25 @@ function horca() {
     pincel.moveTo(757, 146);
     pincel.lineTo(757, 205);
     pincel.stroke();
-    
+    pincel.fillStyle = "#0A3871";
+    pincel.beginPath();
+    pincel.arc(757, 238, 35, 0, 2*3.14);
+    pincel.stroke();
+    pincel.beginPath();
+    pincel.moveTo(757, 272);
+    pincel.lineTo(810, 340);
+    pincel.stroke();
+    pincel.moveTo(757, 272);
+    pincel.lineTo(710, 340);
+    pincel.stroke();
+    pincel.moveTo(757, 272);
+    pincel.lineTo(759, 420);
+    pincel.stroke();
+    pincel.moveTo(759, 418);
+    pincel.lineTo(725, 475);
+    pincel.stroke();
+    pincel.moveTo(759, 418);
+    pincel.lineTo(793, 475);
+    pincel.stroke();
 }
 horca();
