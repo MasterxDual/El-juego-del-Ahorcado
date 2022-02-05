@@ -94,3 +94,4 @@ function letrasPerdiste() {
     pincel.fillText(texto, 870, 285);
 }
 letrasPerdiste();
+
