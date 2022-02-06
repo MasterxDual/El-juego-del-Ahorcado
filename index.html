@@ -16,10 +16,10 @@
                 <button class="botonAgregar">Agregar nueva palabra</button>
             </section>
             <section class="desktop2">
-                <textarea id="campoTexto" name="textarea" rows="1" cols="20">Ingrese una palabra</textarea>
+                <input type="text" id="campoTexto" maxlength="8" onchange="this.value = this.value.toUpperCase();" placeholder="Ingrese una palabra"/>
                 <h4>Máx. de 8 letras</h4>
-                <img src="images/Exclamación.svg">
-                <button class="botonGuardar">Guardar y empezar</button>
+                <img src="images/Exclamación.svg"/>
+                <button onclick = "agregarPalabraALista()" class="botonGuardar">Guardar y empezar</button>
                 <button class="botonCancelar">Cancelar</button>
             </section>
             <section class="desktop3y4">
@@ -28,7 +28,8 @@
                 <button class="botonRendirse">Desistir</button>       
             </section>
     </main>
-    <script src="tablero.js"></script>
+    <script src="canvas.js"></script>
+    <script src="logica.js"></script>
 </body>
 <footer>
     Created, managed and produced by Agustin Eduardo Brambilla | All rigths reserved © 2022
