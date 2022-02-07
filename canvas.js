@@ -49,30 +49,6 @@ function horca() {
 }
 horca();
 
-function guionesPalabras() {
-    var pantalla = document.querySelector("canvas");
-    var pincel = pantalla.getContext("2d");
-    pincel.strokeStyle = "#0A3871";
-    pincel.lineWidth = 4;
-    pincel.beginPath();
-    pincel.moveTo(420, 711);
-    pincel.lineTo(500, 711);
-    pincel.stroke();
-    pincel.moveTo(516, 711);
-    pincel.lineTo(596, 711);
-    pincel.stroke();
-    pincel.moveTo(612, 711);
-    pincel.lineTo(692, 711);
-    pincel.stroke();
-    pincel.moveTo(708, 711);
-    pincel.lineTo(788, 711);
-    pincel.stroke();
-    pincel.moveTo(804, 711);
-    pincel.lineTo(884, 711);
-    pincel.stroke();
-}
-guionesPalabras();
-
 function letrasGanaste() {
     var pantalla = document.querySelector("canvas");
     var pincel = pantalla.getContext("2d");
