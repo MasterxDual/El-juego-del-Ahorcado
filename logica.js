@@ -37,15 +37,16 @@ var listaPalabraSeparada = palabraAlAzar().split("");
 var longitudLista = listaPalabraSeparada.length;
 console.log(longitudLista);
 
+//Seleccionando cada elemento (letra) de la lista de arriba
 function separarPalabraYSeleccion() {
-    //Seleccionando cada elemento (letra) de la lista de arriba
-    for(i = 0; i < listaPalabraSeparada.length; i++) {
+    for(i = 0; i < longitudLista; i++) {
       var letras = console.log(listaPalabraSeparada[i]);  
     }    
     return letras;
 }
 console.log(separarPalabraYSeleccion());
 
+//Dibujando los guiones bajos de la palabra random
 function guionesPalabras() {
     var pantalla = document.querySelector("canvas");
     var pincel = pantalla.getContext("2d");
@@ -53,7 +54,7 @@ function guionesPalabras() {
         for(j = 0; j < longitudLista; j++) {
             var a = 420 + (80 * i) + (16 * j);
             if(i == j) {
-                i++;
+                i++;               
             } else if(i > j) {
                 j++;
             }
@@ -67,4 +68,12 @@ function guionesPalabras() {
         }
     }
 }
-guionesPalabras();
+
+//Verificamos si la letra presionada es una letra y no otro carácter
+function teclaPresionada() {
+    var tecla = document.getElementById("letra1").value;
+    var codigoTecla = tecla.toUpperCase().charCodeAt();
+    if((codigoTecla > 64) && (codigoTecla < 91)) {
+        guionesPalabras();
+    }
+}
