@@ -71,3 +71,21 @@ function letrasPerdiste() {
 }
 letrasPerdiste();
 
+//Graficando letras que están contenidas en la palabra secreta random
+function letrasCorrectas() {
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    var tecla = document.getElementById("letra1").value.toUpperCase();
+    var texto = tecla;
+        if(tecla === separarPalabraYSeleccion()) {
+            for(i = 0; i < longitudLista; i++) {
+                for(j = 0; j < longitudLista; j++) {
+                    var a = 460 + (80 * i) + (16 * i);
+                    pincel.beginPath();
+                    pincel.font = "italic 48px Arial";
+                    pincel.fillStyle = "#0A3871";
+                    pincel.fillText(texto, a, 727 )
+                }
+            }
+        }
+}
