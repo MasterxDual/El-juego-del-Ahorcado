@@ -46,7 +46,7 @@ function separarPalabraYSeleccion(tecla) {
     var lugaresTipeado = listaPalabraSeparada.indexOf(tecla);
     while(lugaresTipeado != -1) {
         indices.push(lugaresTipeado);
-        lugaresTipeado = indices.indexOf(tecla, lugaresTipeado + 1);
+        lugaresTipeado = listaPalabraSeparada.indexOf(tecla, lugaresTipeado + 1);
     }
         return indices;
 }
@@ -76,10 +76,10 @@ function guionesPalabras() {
 
 //Verificamos si la letra presionada es una letra y no otro carácter
 function teclaPresionada() {
+        guionesPalabras();
     var tecla = document.getElementById("letra1").value;
     var codigoTecla = tecla.charCodeAt();
     if((codigoTecla > 64) && (codigoTecla < 91) || (codigoTecla > 96 && codigoTecla < 123)) {
-        guionesPalabras();
         letrasCorrectas(tecla);
         console.log(tecla.toUpperCase());
     } 
@@ -92,10 +92,10 @@ function letrasCorrectas(tecla) {
     var texto = tecla.toUpperCase();
     var lista = separarPalabraYSeleccion(tecla);
             for(i = 0; i < lista.length; i++) {
-                    var a = 460 + (80 * lista[i]) + (16 * lista[i]);
+                    var a = 443 + (80 * lista[i]) + (16 * lista[i]);
                     pincel.beginPath();
-                    pincel.font = "italic 48px Arial";
+                    pincel.font = "italic 60px Arial";
                     pincel.fillStyle = "#0A3871";
-                    pincel.fillText(texto, a, 727 )
+                    pincel.fillText(texto, a, 699 )
             }
 }
