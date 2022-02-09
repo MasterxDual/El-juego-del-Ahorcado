@@ -26,11 +26,11 @@
                 <canvas width= "1200" height="800"></canvas>
                 <button class="botonJugar">Nuevo juego</button>
                 <button class="botonRendirse">Desistir</button> 
-                <input id="letra1" type="text" onkeypress="teclaPresionada()"/>      
+                <input id="letra1" type="text" onkeypress="teclaPresionada()" onchange="this.value = this.value.toUpperCase()"/>      
             </section>
     </main>
-    <script src="canvas.js"></script>
     <script src="logica.js"></script>
+    <script src="canvas.js"></script>
 </body>
 <footer>
     Created, managed and produced by Agustin Eduardo Brambilla | All rigths reserved © 2022

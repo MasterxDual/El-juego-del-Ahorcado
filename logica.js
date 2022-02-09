@@ -1,5 +1,6 @@
 var palabras = ["CORRER", "MEDICINA", "AMENAZA", "AVESTRUZ"];
 var palabraNuevaCampo = document.getElementById("campoTexto");
+var matriz = [];
 
 //Agrega una palabra nueva escrita por el usuario;
 function agregarPalabraALista() {
@@ -35,16 +36,20 @@ console.log(palabraAlAzar());
 //Separando la palabra secreta al azar en una lista separando cada letra
 var listaPalabraSeparada = palabraAlAzar().split("");
 var longitudLista = listaPalabraSeparada.length;
+
+console.log(listaPalabraSeparada);
 console.log(longitudLista);
 
-//Seleccionando cada elemento (letra) de la lista de arriba
-function separarPalabraYSeleccion() {
-    for(i = 0; i < longitudLista; i++) {
-      var letras = console.log(listaPalabraSeparada[i]);  
-    }    
-    return letras;
+//Contabilizamos el número de cada letra posicionada por el usuario tipeando el teclado;
+function separarPalabraYSeleccion(tecla) {
+    var indices = [];
+    var lugaresTipeado = listaPalabraSeparada.indexOf(tecla);
+    while(lugaresTipeado != -1) {
+        indices.push(lugaresTipeado);
+        lugaresTipeado = indices.indexOf(tecla, lugaresTipeado + 1);
+    }
+        return indices;
 }
-console.log(separarPalabraYSeleccion());
 
 //Dibujando los guiones bajos de la palabra random
 function guionesPalabras() {
@@ -72,8 +77,25 @@ function guionesPalabras() {
 //Verificamos si la letra presionada es una letra y no otro carácter
 function teclaPresionada() {
     var tecla = document.getElementById("letra1").value;
-    var codigoTecla = tecla.toUpperCase().charCodeAt();
-    if((codigoTecla > 64) && (codigoTecla < 91)) {
+    var codigoTecla = tecla.charCodeAt();
+    if((codigoTecla > 64) && (codigoTecla < 91) || (codigoTecla > 96 && codigoTecla < 123)) {
         guionesPalabras();
-    }
+        letrasCorrectas(tecla);
+        console.log(tecla.toUpperCase());
+    } 
+}
+
+//Graficando letras que están contenidas en la palabra secreta random
+function letrasCorrectas(tecla) {
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    var texto = tecla.toUpperCase();
+    var lista = separarPalabraYSeleccion(tecla);
+            for(i = 0; i < lista.length; i++) {
+                    var a = 460 + (80 * lista[i]) + (16 * lista[i]);
+                    pincel.beginPath();
+                    pincel.font = "italic 48px Arial";
+                    pincel.fillStyle = "#0A3871";
+                    pincel.fillText(texto, a, 727 )
+            }
 }
