@@ -12,15 +12,15 @@
     <main>
         <h1>A jugar al Ahorcado... Que empiece el juego!</h1>
             <section class="desktop1">
-                <button class="botonIniciar">Iniciar juego</button>
-                <button class="botonAgregar">Agregar nueva palabra</button>
+                <button class="botonIniciar" onclick="guionesPalabras()">Iniciar juego</button>
+                <button class="botonAgregar" onclick="aparecerElementos()">Agregar nueva palabra</button>
             </section>
-            <section class="desktop2">
+            <section id="desktop2">
                 <input type="text" id="campoTexto" maxlength="8" onchange="this.value = this.value.toUpperCase()" placeholder="Ingrese una palabra"/>
                 <h4>Máx. de 8 letras</h4>
                 <img src="images/Exclamación.svg"/>
                 <button onclick = "agregarPalabraALista()" class="botonGuardar">Guardar y empezar</button>
-                <button class="botonCancelar">Cancelar</button>
+                <button class="botonCancelar" onclick="desaparecerElementos()">Cancelar</button>
             </section>
             <section class="desktop3y4">
                 <canvas width= "1200" height="800"></canvas>
