@@ -1,12 +1,13 @@
 var palabras = ["CORRER", "MEDICINA", "AMENAZA", "AVESTRUZ"];
 var palabraNuevaCampo = document.getElementById("campoTexto");
-var desktop2 = document.getElementById("desktop2")
+var desktop1 = document.getElementById("desktop1");
+var desktop2 = document.getElementById("desktop2");
+var desktop3y4 = document.getElementById("desktop3y4");
 
 //Agrega una palabra nueva escrita por el usuario;
 function agregarPalabraALista() {
     var palabraNueva = palabraNuevaCampo.value;
     var palabraNueva2 = palabraNueva.replace(/[^a-zA-Z]/g, "");
-    window.scrollTo(0, 300);
     palabras.push(palabraNueva2);
     localStorage.setItem("Agus", palabras); //Guarda la palabra nueva en el almacenamiento local (junto con el array);
 }
@@ -69,7 +70,8 @@ function verificarPalabraIncorrecta() {
 function guionesPalabras() {
     var pantalla = document.querySelector("canvas");
     var pincel = pantalla.getContext("2d");
-    window.scrollTo(0, 300);
+    aparecerElementos()
+    window.scrollTo(0, 500);
     for(i = 0; i < longitudLista; i++) {
         for(j = 0; j < longitudLista; j++) {
             var a = 420 + (80 * i) + (16 * j);
@@ -136,7 +138,6 @@ function letrasIncorrectas() {
 function horca() {
     var pantalla = document.querySelector("canvas");
     var pincel = pantalla.getContext("2d");
-    var lista2 = verificarPalabraIncorrecta();
     pincel.strokeStyle = "#0A3871";
     pincel.lineWidth = 5;
     pincel.beginPath();
@@ -177,11 +178,30 @@ function horca() {
 
 function desaparecerElementos() {
     desktop2.style.display = "none";
+    desktop3y4.style.display = "none";
 }
-desaparecerElementos()
+desaparecerElementos();
 
 function aparecerElementos() {
-    if(desktop2.style.display == "none") {
-        desktop2.style.display = "block"
-    }
+    desktop2.style.display = "block";
+    desktop3y4.style.display = "block";
+}
+
+
+function letrasPerdiste() {
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    horca();
+    var palabraAStrComas = listaPalabraSeparada.toString();
+    var palabraAStrSinComas = palabraAStrComas.replace(/,/g, "")
+    var texto1 = "Fin del juego!";
+    var texto2 =  "La palabra era:" 
+    var texto3 = palabraAStrSinComas;
+    pincel.beginPath();
+    pincel.font = "italic 30px Arial";
+    pincel.fillStyle = "red";
+    pincel.fillText(texto1, 870, 285);
+    pincel.fillText(texto2, 870, 320);
+    pincel.fillStyle = "green";
+    pincel.fillText(texto3, 870, 356);
 }

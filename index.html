@@ -11,7 +11,7 @@
 <body>
     <main>
         <h1>A jugar al Ahorcado... Que empiece el juego!</h1>
-            <section class="desktop1">
+            <section id="desktop1">
                 <button class="botonIniciar" onclick="guionesPalabras()">Iniciar juego</button>
                 <button class="botonAgregar" onclick="aparecerElementos()">Agregar nueva palabra</button>
             </section>
@@ -19,13 +19,13 @@
                 <input type="text" id="campoTexto" maxlength="8" onchange="this.value = this.value.toUpperCase()" placeholder="Ingrese una palabra"/>
                 <h4>Máx. de 8 letras</h4>
                 <img src="images/Exclamación.svg"/>
-                <button onclick = "agregarPalabraALista()" class="botonGuardar">Guardar y empezar</button>
+                <button onclick = "agregarPalabraALista(); guionesPalabras()" class="botonGuardar">Guardar y empezar</button>
                 <button class="botonCancelar" onclick="desaparecerElementos()">Cancelar</button>
             </section>
-            <section class="desktop3y4">
+            <section id="desktop3y4">
                 <canvas width= "1200" height="800"></canvas>
-                <button class="botonJugar">Nuevo juego</button>
-                <button class="botonRendirse">Desistir</button> 
+                <button class="botonJugar" onclick="location.reload()">Nuevo juego</button>
+                <button class="botonRendirse" onclick="letrasPerdiste()">Desistir</button> 
                 <input id="letra1" type="text" onkeypress="teclaPresionada()" onchange="this.value = this.value.toUpperCase()"/>      
             </section>
     </main>
