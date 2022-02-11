@@ -135,7 +135,7 @@ function letrasIncorrectas() {
         }
 }
 
-function horca() {
+function base() {
     var pantalla = document.querySelector("canvas");
     var pincel = pantalla.getContext("2d");
     pincel.strokeStyle = "#0A3871";
@@ -144,36 +144,104 @@ function horca() {
     pincel.moveTo(506, 503);
     pincel.lineTo(800, 503);
     pincel.stroke();
+}
+
+function soporte1() {
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    pincel.fillStyle = "#0A3871";
     pincel.lineWidth = 4.5;
     pincel.moveTo(590, 503);
     pincel.lineTo(590, 143);
     pincel.stroke();
+    pincel.fillStyle = "#0A3871";
+}
+
+function soporte2() {
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    pincel.fillStyle = "#0A3871";
     pincel.moveTo(588, 145);
     pincel.lineTo(759, 145);
     pincel.stroke();
+    pincel.fillStyle = "#0A3871";
+}
+
+function soporte3() {
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    pincel.fillStyle = "#0A3871";
     pincel.moveTo(757, 146);
     pincel.lineTo(757, 205);
     pincel.stroke();
+    
+}
+
+function cabeza() {
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
     pincel.fillStyle = "#0A3871";
     pincel.beginPath();
     pincel.arc(757, 238, 35, 0, 2*3.14);
     pincel.stroke();
+}
+
+function brazoDerecho() {
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    pincel.fillStyle = "#0A3871";
     pincel.beginPath();
     pincel.moveTo(757, 272);
     pincel.lineTo(810, 340);
     pincel.stroke();
+}
+
+function brazoIzquierdo() {
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    pincel.fillStyle = "#0A3871";
     pincel.moveTo(757, 272);
     pincel.lineTo(710, 340);
     pincel.stroke();
+}
+
+function cuerpo() {
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    pincel.fillStyle = "#0A3871";
     pincel.moveTo(757, 272);
     pincel.lineTo(759, 420);
     pincel.stroke();
+}
+
+function piernaIzquierda() {
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    pincel.fillStyle = "#0A3871";
     pincel.moveTo(759, 418);
     pincel.lineTo(725, 475);
     pincel.stroke();
+}
+
+function piernaDerecha() {
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    pincel.fillStyle = "#0A3871";
     pincel.moveTo(760, 418);
     pincel.lineTo(796, 475);
     pincel.stroke();
+}
+function horca() {
+    base();
+    soporte1();
+    soporte2();
+    soporte3();
+    cabeza();
+    brazoDerecho()
+    brazoIzquierdo();
+    cuerpo();
+    piernaIzquierda();
+    piernaDerecha();
 }
 
 function desaparecerElementos() {
