@@ -1,20 +1,23 @@
-var palabras = ["CORRER", "MEDICINA", "AMENAZA", "AVESTRUZ"];
-var palabraNuevaCampo = document.getElementById("campoTexto");
-var desktop1 = document.getElementById("desktop1");
-var desktop2 = document.getElementById("desktop2");
-var desktop3y4 = document.getElementById("desktop3y4");
+let palabras = ["CORRER", "MEDICINA", "AMENAZA", "AVESTRUZ"];
+let palabraNuevaCampo = document.getElementById("campoTexto");
+let desktop1 = document.getElementById("desktop1");
+let desktop2 = document.getElementById("desktop2");
+let desktop3y4 = document.getElementById("desktop3y4");
+let pantalla = document.querySelector("canvas");
+let pincel = pantalla.getContext("2d");
+var arrNoHayLetra = [];
 
 //Agrega una palabra nueva escrita por el usuario;
 function agregarPalabraALista() {
-    var palabraNueva = palabraNuevaCampo.value;
-    var palabraNueva2 = palabraNueva.replace(/[^a-zA-Z]/g, "");
+    let palabraNueva = palabraNuevaCampo.value;
+    let palabraNueva2 = palabraNueva.replace(/[^a-zA-Z]/g, "");
     palabras.push(palabraNueva2);
     localStorage.setItem("Agus", palabras); //Guarda la palabra nueva en el almacenamiento local (junto con el array);
 }
 
 //Carga la palabra nueva guardada anteriormente en el setItem (junto con el array);
 function cargarListaPalabras() {
-    var palabras_str = localStorage.getItem("Agus"); 
+    let palabras_str = localStorage.getItem("Agus"); 
     palabras = palabras_str.split(","); //Divide la cadena a través del separador ",". Es decir, donde hay comas, el resultado es dividido en el array resultante. 
     palabras.pop();
     console.log(palabras);
@@ -28,59 +31,118 @@ function init() {
 }
 init();
 
+//Dibuja el tablero del juego
+function tableroJuego() {
+    pincel.fillStyle = "#F3F5FC";
+    pincel.fillRect(100, 0, 1200, 800);
+    pincel.fill();
+}
+
 //Elige una palabra del array al azar;
 function palabraAlAzar() {
-    var palabraSecreta = palabras[Math.floor(Math.random() * palabras.length)];
+    let palabraSecreta = palabras[Math.floor(Math.random() * palabras.length)];
     return palabraSecreta;
 }
-console.log(palabraAlAzar());
 
 //Separando la palabra secreta al azar en una lista separando cada letra
-var listaPalabraSeparada = palabraAlAzar().split("");
-var longitudLista = listaPalabraSeparada.length;
+let listaPalabraSeparada = palabraAlAzar().split("");
+let longitudLista = listaPalabraSeparada.length;
 
 console.log(listaPalabraSeparada);
 console.log(longitudLista);
 
-//Contabilizamos el número de cada letra posicionada por el usuario tipeando el teclado que está en la palabra secreta
-function verificarPalabraCorrecta() {
-    var indicesTipeado = [];
-    var tecla = document.getElementById("letra1").value;
-    var lugaresTipeado = listaPalabraSeparada.indexOf(tecla);
-    while(lugaresTipeado != -1) {
-        indicesTipeado.push(lugaresTipeado);
-        lugaresTipeado = listaPalabraSeparada.indexOf(tecla, lugaresTipeado + 1);
-    }
-        return indicesTipeado;
+//Graficando letras que coinciden con la palabra secreta random
+function dibujarLetra(indiceLetra) {
+    let letra = document.getElementById("inputLetra").value;
+    let texto = letra.toUpperCase();
+    let a = 443 + (80 * indiceLetra) + (16 * indiceLetra);
+    pincel.beginPath(); 
+    pincel.font = "italic 60px Arial";
+    pincel.fillStyle = "#0A3871";
+    pincel.fillText(texto, a, 699)
+    if(indiceLetra == (longitudLista - 1)) {            //Ver porque cuando hay una palabra con una
+        letrasGanaste();                                //letra repetida al inicio y al final se activa 
+    }                                                   //el letrasGanaste y con la palabra correr tambien
 }
 
+//Contabilizamos el número de cada letra posicionada por el usuario tipeando el teclado que está en la palabra secreta
+function encontrarLetrasCoincidentes() {
+    let letra = document.getElementById("inputLetra").value;
+    let lugaresTipeado = listaPalabraSeparada.indexOf(letra);
+    let noHayLetra = true;
+    while(lugaresTipeado != -1) {
+            noHayLetra = false;
+            dibujarLetra(lugaresTipeado);
+            lugaresTipeado = listaPalabraSeparada.indexOf(letra, lugaresTipeado + 1);
+        }   if(lugaresTipeado === -1 && noHayLetra) {
+                arrNoHayLetra.push(letra);
+                noSeEncontro()
+            }
+}
+
+//Graficando letras y tipo muerto cuando las primeras no coinciden con la palabra secreta random
+function noSeEncontro() {
+    let letra = document.getElementById("inputLetra").value;
+    let texto = letra.toUpperCase();
+    for(let i = 0; i < arrNoHayLetra.length; i++) {
+        if(arrNoHayLetra.includes(letra, i)) {
+            let a = 900 + (20 * i) + (5 * i);
+            pincel.beginPath();
+            pincel.font = "italic 45px Arial";
+            pincel.fillStyle = "#0A3871";
+            pincel.fillText(texto, a, 380)
+            if(i == 0) {
+                base()
+            } else if(i == 1) {
+                soporte1();
+            } else if(i == 2) {
+                soporte2();
+            } else if(i == 3) {
+                soporte3();
+            } else if(i == 4) {
+                cabeza();
+            } else if(i == 5) {
+                brazoDerecho();
+            } else if(i == 6) {
+                brazoIzquierdo();
+            } else if(i == 7) {
+                cuerpo()
+            } else if(i == 8) {
+                piernaDerecha();
+            } else if(i == 9) {
+                piernaIzquierda();
+                letrasPerdiste();
+            }
+        }    
+    }
+}
+
+/*
 //Contabilizamos el número de cada letra posicionada que el usuario tipea y no está contenida en la palabra secreta
-function verificarPalabraIncorrecta() {
-    var indicesNoTipeado = [];
-    var tecla = document.getElementById("letra1").value;
-    var lugaresNoTipeado = listaPalabraSeparada.indexOf(tecla);
+function encontrarLetrasNoCoincidentes(letra) {
+    let indicesNoTipeado = [];
+    let lugaresNoTipeado = listaPalabraSeparada.indexOf(letra);
         if(lugaresNoTipeado === -1) {
             indicesNoTipeado.push(lugaresNoTipeado);
-            lugaresNoTipeado = listaPalabraSeparada.indexOf(tecla, lugaresNoTipeado);
+            lugaresNoTipeado = listaPalabraSeparada.indexOf(letra, lugaresNoTipeado + 1);
         }
         return indicesNoTipeado;
 }
-
-//Dibujando los guiones bajos de la palabra random
+*/
+//Dibujando los guiones bajos de la palabra secreta random
 function guionesPalabras() {
-    var pantalla = document.querySelector("canvas");
-    var pincel = pantalla.getContext("2d");
+    tableroJuego();
     aparecerElementos()
     window.scrollTo(0, 500);
     for(i = 0; i < longitudLista; i++) {
         for(j = 0; j < longitudLista; j++) {
-            var a = 420 + (80 * i) + (16 * j);
+            let a = 420 + (80 * i) + (16 * j);
             if(i == j) {
                 i++;               
             } else if(i > j) {
                 j++;
             }
-            var b = 420 + (80 * i) + (16 * j);
+            let b = 420 + (80 * i) + (16 * j);
             pincel.strokeStyle = "#0A3871";                 
             pincel.lineWidth = 4;
             pincel.beginPath();          
@@ -93,25 +155,22 @@ function guionesPalabras() {
 
 //Verificamos si la letra presionada es una letra y no otro carácter
 function teclaPresionada() {
-        guionesPalabras();
-    var tecla = document.getElementById("letra1").value;
-    var codigoTecla = tecla.charCodeAt();
-    if((codigoTecla > 64) && (codigoTecla < 91) || (codigoTecla > 96 && codigoTecla < 123)) {
-        letrasCorrectas();
-        letrasIncorrectas();
-        console.log(tecla.toUpperCase());
-    } 
+    let letra = document.getElementById("inputLetra").value;
+    let codigoTecla = letra.charCodeAt();
+    if((codigoTecla > 64) && (codigoTecla < 91)) {
+        console.log(letra.toUpperCase());
+        encontrarLetrasCoincidentes();
+        noSeEncontro();
+    }
+    
 }
 
+/*
 //Graficando letras que están contenidas en la palabra secreta random
-function letrasCorrectas() {
-    var pantalla = document.querySelector("canvas");
-    var pincel = pantalla.getContext("2d");
-    var tecla = document.getElementById("letra1").value;
-    var texto = tecla.toUpperCase();
-    var lista = verificarPalabraCorrecta();
+function letrasCorrectas(letra) {
+    let lista = encontrarLetrasCoincidentes();
             for(i = 0; i < lista.length; i++) {
-                    var a = 443 + (80 * lista[i]) + (16 * lista[i]);
+                    let a = 443 + (80 * lista[i]) + (16 * lista[i]);
                     pincel.beginPath();
                     pincel.font = "italic 60px Arial";
                     pincel.fillStyle = "#0A3871";
@@ -119,25 +178,22 @@ function letrasCorrectas() {
             }
 }
 
+
 //Graficando letras que no están contenidas en la palabra secreta random
-function letrasIncorrectas() {
-    var pantalla = document.querySelector("canvas");
-    var pincel = pantalla.getContext("2d");
-    var tecla = document.getElementById("letra1").value;
-    var texto = tecla.toUpperCase();
-    var lista2 = verificarPalabraIncorrecta();
+function letrasIncorrectas(letra) {
+    let lista2 = encontrarLetrasNoCoincidentes();
         for(i = 0; i < lista2.length; i++) {
-            var a = 900 + (20 * lista2[i]) + (5 * lista2[i]);
+            let a = 900 + (20 * lista2[i]) + (5 * lista2[i]);
             pincel.beginPath();
             pincel.font = "italic 45px Arial";
             pincel.fillStyle = "#0A3871";
             pincel.fillText(texto, a, 380 )
         }
 }
+*/
 
+//Dibuja la base que sostiene al muñeco
 function base() {
-    var pantalla = document.querySelector("canvas");
-    var pincel = pantalla.getContext("2d");
     pincel.strokeStyle = "#0A3871";
     pincel.lineWidth = 5;
     pincel.beginPath();
@@ -146,49 +202,47 @@ function base() {
     pincel.stroke();
 }
 
+//Dibuja el palo vertical que sostiene al muñeco
 function soporte1() {
-    var pantalla = document.querySelector("canvas");
-    var pincel = pantalla.getContext("2d");
     pincel.fillStyle = "#0A3871";
     pincel.lineWidth = 4.5;
+    pincel.beginPath();
     pincel.moveTo(590, 503);
     pincel.lineTo(590, 143);
     pincel.stroke();
     pincel.fillStyle = "#0A3871";
 }
 
+//Dibuja el palo horizontal que sostiene al muñeco
 function soporte2() {
-    var pantalla = document.querySelector("canvas");
-    var pincel = pantalla.getContext("2d");
     pincel.fillStyle = "#0A3871";
+    pincel.beginPath();
     pincel.moveTo(588, 145);
     pincel.lineTo(759, 145);
     pincel.stroke();
     pincel.fillStyle = "#0A3871";
 }
 
+//Dibuja el palo cortito vertical que sostiene al muñeco
 function soporte3() {
-    var pantalla = document.querySelector("canvas");
-    var pincel = pantalla.getContext("2d");
     pincel.fillStyle = "#0A3871";
+    pincel.beginPath();
     pincel.moveTo(757, 146);
     pincel.lineTo(757, 205);
     pincel.stroke();
     
 }
 
+//Dibuja la cabeza del muñeco
 function cabeza() {
-    var pantalla = document.querySelector("canvas");
-    var pincel = pantalla.getContext("2d");
     pincel.fillStyle = "#0A3871";
     pincel.beginPath();
     pincel.arc(757, 238, 35, 0, 2*3.14);
     pincel.stroke();
 }
 
+//Dibuja el brazo derecho del muñeco
 function brazoDerecho() {
-    var pantalla = document.querySelector("canvas");
-    var pincel = pantalla.getContext("2d");
     pincel.fillStyle = "#0A3871";
     pincel.beginPath();
     pincel.moveTo(757, 272);
@@ -196,80 +250,94 @@ function brazoDerecho() {
     pincel.stroke();
 }
 
+//Dibuja el brazo izquierdo del muñeco
 function brazoIzquierdo() {
-    var pantalla = document.querySelector("canvas");
-    var pincel = pantalla.getContext("2d");
     pincel.fillStyle = "#0A3871";
+    pincel.beginPath();
     pincel.moveTo(757, 272);
     pincel.lineTo(710, 340);
     pincel.stroke();
 }
 
+//Dibuja el cuerpo del muñeco
 function cuerpo() {
-    var pantalla = document.querySelector("canvas");
-    var pincel = pantalla.getContext("2d");
     pincel.fillStyle = "#0A3871";
+    pincel.beginPath();
     pincel.moveTo(757, 272);
     pincel.lineTo(759, 420);
     pincel.stroke();
 }
 
+//Dibuja la pierna izquierda el muñeco
 function piernaIzquierda() {
-    var pantalla = document.querySelector("canvas");
-    var pincel = pantalla.getContext("2d");
     pincel.fillStyle = "#0A3871";
+    pincel.beginPath();
     pincel.moveTo(759, 418);
     pincel.lineTo(725, 475);
     pincel.stroke();
 }
 
+//Dibuja la pierna derecha del muñeco
 function piernaDerecha() {
-    var pantalla = document.querySelector("canvas");
-    var pincel = pantalla.getContext("2d");
     pincel.fillStyle = "#0A3871";
+    pincel.beginPath();
     pincel.moveTo(760, 418);
     pincel.lineTo(796, 475);
     pincel.stroke();
 }
+
+//La horca completa dibujada
 function horca() {
     base();
     soporte1();
     soporte2();
     soporte3();
     cabeza();
-    brazoDerecho()
+    brazoDerecho();
     brazoIzquierdo();
     cuerpo();
-    piernaIzquierda();
+    piernaIzquierda()
     piernaDerecha();
 }
 
+//Hace desaparecer los elementos de las section segunda y tercera del html
 function desaparecerElementos() {
     desktop2.style.display = "none";
     desktop3y4.style.display = "none";
 }
 desaparecerElementos();
 
+//Hace aparecer los elementos de las section segunda y tercera del html
 function aparecerElementos() {
     desktop2.style.display = "block";
     desktop3y4.style.display = "block";
 }
 
-
+//Dibuja el mensaje cuando perdés el juego
 function letrasPerdiste() {
-    var pantalla = document.querySelector("canvas");
-    var pincel = pantalla.getContext("2d");
     horca();
-    var palabraAStrComas = listaPalabraSeparada.toString();
-    var palabraAStrSinComas = palabraAStrComas.replace(/,/g, "")
-    var texto1 = "Fin del juego!";
-    var texto2 =  "La palabra era:" 
-    var texto3 = palabraAStrSinComas;
+    let palabraAStrComas = listaPalabraSeparada.toString();
+    let palabraAStrSinComas = palabraAStrComas.replace(/,/g, "")
+    let texto1 = "Fin del juego!";
+    let texto2 =  "La palabra era:" 
+    let texto3 = palabraAStrSinComas;
     pincel.beginPath();
     pincel.font = "italic 30px Arial";
     pincel.fillStyle = "red";
-    pincel.fillText(texto1, 870, 285);
-    pincel.fillText(texto2, 870, 320);
+    pincel.fillText(texto1, 870, 250);
+    pincel.fillText(texto2, 870, 285);
     pincel.fillStyle = "green";
-    pincel.fillText(texto3, 870, 356);
+    pincel.fillText(texto3, 870, 321);
 }
+
+//Dibuja el mensaje cuando ganás el juego
+function letrasGanaste() {
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+    var texto = "Ganaste, felicidades!";
+    pincel.beginPath();
+    pincel.font = "italic 30px Arial";
+    pincel.fillStyle = "green";
+    pincel.fillText(texto, 870, 285);
+}
+
