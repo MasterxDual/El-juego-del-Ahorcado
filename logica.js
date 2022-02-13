@@ -1,10 +1,11 @@
-let palabras = ["CORRER", "MEDICINA", "AMENAZA", "AVESTRUZ"];
+let palabras = ["TROTAR", "MEDICINA", "FUEGO", "AVESTRUZ"];
 let palabraNuevaCampo = document.getElementById("campoTexto");
 let desktop1 = document.getElementById("desktop1");
 let desktop2 = document.getElementById("desktop2");
 let desktop3y4 = document.getElementById("desktop3y4");
 let pantalla = document.querySelector("canvas");
 let pincel = pantalla.getContext("2d");
+var arrHayLetra = [];
 var arrNoHayLetra = [];
 
 //Agrega una palabra nueva escrita por el usuario;
@@ -12,12 +13,12 @@ function agregarPalabraALista() {
     let palabraNueva = palabraNuevaCampo.value;
     let palabraNueva2 = palabraNueva.replace(/[^a-zA-Z]/g, "");
     palabras.push(palabraNueva2);
-    localStorage.setItem("Agus", palabras); //Guarda la palabra nueva en el almacenamiento local (junto con el array);
+    localStorage.setItem("Agustin", palabras); //Guarda la palabra nueva en el almacenamiento local (junto con el array);
 }
 
 //Carga la palabra nueva guardada anteriormente en el setItem (junto con el array);
 function cargarListaPalabras() {
-    let palabras_str = localStorage.getItem("Agus"); 
+    let palabras_str = localStorage.getItem("Agustin"); 
     palabras = palabras_str.split(","); //Divide la cadena a través del separador ",". Es decir, donde hay comas, el resultado es dividido en el array resultante. 
     palabras.pop();
     console.log(palabras);
@@ -25,7 +26,7 @@ function cargarListaPalabras() {
 
 //Para asegurarme de que no cargue algo cuando no haya agregado ninguna palabra
 function init() {
-    if(localStorage.getItem("Agus") != null) {  
+    if(localStorage.getItem("Agustin") != null) {  
         cargarListaPalabras();
     } 
 }
@@ -51,6 +52,30 @@ let longitudLista = listaPalabraSeparada.length;
 console.log(listaPalabraSeparada);
 console.log(longitudLista);
 
+//Contabilizamos el número de cada letra posicionada por el usuario tipeando el teclado que está en la palabra secreta
+function encontrarLetrasCoincidentes() {
+    let letra = document.getElementById("inputLetra").value;
+    let lugaresTipeado = listaPalabraSeparada.indexOf(letra);
+    let noHayLetra = true;
+    console.log(lugaresTipeado)
+    while(lugaresTipeado != -1) {
+            noHayLetra = false;
+            arrHayLetra.push(letra);
+            dibujarLetra(lugaresTipeado);
+            lugaresTipeado = listaPalabraSeparada.indexOf(letra, lugaresTipeado + 1);
+            console.log(arrHayLetra);
+        }   if(lugaresTipeado === -1 && noHayLetra) {
+                arrNoHayLetra.push(letra);
+                noSeEncontro()
+                console.log(arrNoHayLetra)
+            }
+}
+
+//Devuelve true si en un array hay uno o mas elementos repetidos
+function letrasRepetidas(array) {
+    return new Set(array).size !== array.length
+}
+
 //Graficando letras que coinciden con la palabra secreta random
 function dibujarLetra(indiceLetra) {
     let letra = document.getElementById("inputLetra").value;
@@ -60,37 +85,30 @@ function dibujarLetra(indiceLetra) {
     pincel.font = "italic 60px Arial";
     pincel.fillStyle = "#0A3871";
     pincel.fillText(texto, a, 699)
-    if(indiceLetra == (longitudLista - 1)) {            //Ver porque cuando hay una palabra con una
-        letrasGanaste();                                //letra repetida al inicio y al final se activa 
-    }                                                   //el letrasGanaste y con la palabra correr tambien
-}
-
-//Contabilizamos el número de cada letra posicionada por el usuario tipeando el teclado que está en la palabra secreta
-function encontrarLetrasCoincidentes() {
-    let letra = document.getElementById("inputLetra").value;
-    let lugaresTipeado = listaPalabraSeparada.indexOf(letra);
-    let noHayLetra = true;
-    while(lugaresTipeado != -1) {
-            noHayLetra = false;
-            dibujarLetra(lugaresTipeado);
-            lugaresTipeado = listaPalabraSeparada.indexOf(letra, lugaresTipeado + 1);
-        }   if(lugaresTipeado === -1 && noHayLetra) {
-                arrNoHayLetra.push(letra);
-                noSeEncontro()
-            }
+        if(arrHayLetra.length == longitudLista) {
+          letrasGanaste()
+        } 
+        if(letrasRepetidas(arrHayLetra)) {
+            alert("Ya escribiste la letra " + letra + ", por favor intenta con otra");
+            arrHayLetra.pop();
+        }
 }
 
 //Graficando letras y tipo muerto cuando las primeras no coinciden con la palabra secreta random
 function noSeEncontro() {
-    let letra = document.getElementById("inputLetra").value;
-    let texto = letra.toUpperCase();
+    let letra = document.getElementById("inputLetra").value.toUpperCase();
     for(let i = 0; i < arrNoHayLetra.length; i++) {
         if(arrNoHayLetra.includes(letra, i)) {
-            let a = 900 + (20 * i) + (5 * i);
+            let texto = arrNoHayLetra[i]
+            let a = 900 + (30 * i) + (15 * i);
             pincel.beginPath();
             pincel.font = "italic 45px Arial";
             pincel.fillStyle = "#0A3871";
             pincel.fillText(texto, a, 380)
+            if(letrasRepetidas(arrNoHayLetra)) {
+                alert("Ya escribiste la letra " + letra + ", por favor intenta con otra");
+                arrNoHayLetra.pop();
+            }
             if(i == 0) {
                 base()
             } else if(i == 1) {
@@ -113,22 +131,11 @@ function noSeEncontro() {
                 piernaIzquierda();
                 letrasPerdiste();
             }
+
         }    
     }
 }
 
-/*
-//Contabilizamos el número de cada letra posicionada que el usuario tipea y no está contenida en la palabra secreta
-function encontrarLetrasNoCoincidentes(letra) {
-    let indicesNoTipeado = [];
-    let lugaresNoTipeado = listaPalabraSeparada.indexOf(letra);
-        if(lugaresNoTipeado === -1) {
-            indicesNoTipeado.push(lugaresNoTipeado);
-            lugaresNoTipeado = listaPalabraSeparada.indexOf(letra, lugaresNoTipeado + 1);
-        }
-        return indicesNoTipeado;
-}
-*/
 //Dibujando los guiones bajos de la palabra secreta random
 function guionesPalabras() {
     tableroJuego();
@@ -164,33 +171,6 @@ function teclaPresionada() {
     }
     
 }
-
-/*
-//Graficando letras que están contenidas en la palabra secreta random
-function letrasCorrectas(letra) {
-    let lista = encontrarLetrasCoincidentes();
-            for(i = 0; i < lista.length; i++) {
-                    let a = 443 + (80 * lista[i]) + (16 * lista[i]);
-                    pincel.beginPath();
-                    pincel.font = "italic 60px Arial";
-                    pincel.fillStyle = "#0A3871";
-                    pincel.fillText(texto, a, 699 )
-            }
-}
-
-
-//Graficando letras que no están contenidas en la palabra secreta random
-function letrasIncorrectas(letra) {
-    let lista2 = encontrarLetrasNoCoincidentes();
-        for(i = 0; i < lista2.length; i++) {
-            let a = 900 + (20 * lista2[i]) + (5 * lista2[i]);
-            pincel.beginPath();
-            pincel.font = "italic 45px Arial";
-            pincel.fillStyle = "#0A3871";
-            pincel.fillText(texto, a, 380 )
-        }
-}
-*/
 
 //Dibuja la base que sostiene al muñeco
 function base() {
