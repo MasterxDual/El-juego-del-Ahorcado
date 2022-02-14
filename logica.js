@@ -34,8 +34,8 @@ init();
 
 //Dibuja el tablero del juego
 function tableroJuego() {
-    pincel.fillStyle = "#F3F5FC";
-    pincel.fillRect(100, 0, 1200, 800);
+    pincel.fillStyle = "#E5E5E5"
+    pincel.fillRect(300, 0, 1400, 800);
     pincel.fill();
 }
 
@@ -100,7 +100,7 @@ function noSeEncontro() {
     for(let i = 0; i < arrNoHayLetra.length; i++) {
         if(arrNoHayLetra.includes(letra, i)) {
             let texto = arrNoHayLetra[i]
-            let a = 900 + (30 * i) + (15 * i);
+            let a = 850 + (30 * i) + (15 * i);
             pincel.beginPath();
             pincel.font = "italic 45px Arial";
             pincel.fillStyle = "#0A3871";
@@ -139,8 +139,9 @@ function noSeEncontro() {
 //Dibujando los guiones bajos de la palabra secreta random
 function guionesPalabras() {
     tableroJuego();
-    aparecerElementos()
-    window.scrollTo(0, 500);
+    desktop1.style.display = "none";
+    desktop3y4.style.display = "block";
+    window.scrollTo(0, 1000);
     for(i = 0; i < longitudLista; i++) {
         for(j = 0; j < longitudLista; j++) {
             let a = 420 + (80 * i) + (16 * j);
@@ -290,7 +291,6 @@ desaparecerElementos();
 //Hace aparecer los elementos de las section segunda y tercera del html
 function aparecerElementos() {
     desktop2.style.display = "block";
-    desktop3y4.style.display = "block";
 }
 
 //Dibuja el mensaje cuando perdés el juego
@@ -320,4 +320,3 @@ function letrasGanaste() {
     pincel.fillStyle = "green";
     pincel.fillText(texto, 870, 285);
 }
-

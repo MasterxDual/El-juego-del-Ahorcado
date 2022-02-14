@@ -122,7 +122,7 @@ body {
     width: 332px;
     height: 67px;
     left: 525px;
-    top: 700px;
+    top: 1000px;
     background: #0A3871;
     border-radius: 24px;
     font-weight: normal;
@@ -135,7 +135,7 @@ body {
     width: 332px;
     height: 67px;
     left: 875px;
-    top: 700px;
+    top: 1000px;
     background: #FFFFFF;
     border: 1px solid #0A3871;
     box-sizing: border-box;
@@ -150,15 +150,16 @@ body {
     position: absolute;
     width: 299px;
     height: 48px;
-    left: 680px;
-    top: 620px;
+    left: 710px;
+    top: 900px;
     font-weight: normal;
-    font-size: 32px;
+    font-size: 28px;
     color: #0A3871;
 }
 
 .firma {
     position: absolute;
+    top: 1200px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 32px;
     font-style: italic;
