@@ -6,19 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie-edge" />
     <title>Juego del Ahorcado</title>
     <link rel="stylesheet" href="style.css">
-    <img src="images/Vector.svg">
+    <img class="img" src="images/Vector.svg">
 </head>
 <body>
     <main>
-        <h1>A jugar al Ahorcado... Que empiece el juego!</h1>
+        <h1 id="title">A jugar al Ahorcado... Que empiece el juego!</h1>
             <section id="desktop1">
                 <button class="botonIniciar" onclick="guionesPalabras()">Iniciar juego</button>
                 <button class="botonAgregar" onclick="aparecerElementos()">Agregar nueva palabra</button>
             </section>
             <section id="desktop2">
                 <input type="text" id="campoTexto" maxlength="8" onchange="this.value = this.value.toUpperCase()" placeholder="Ingrese una palabra"/>
-                <h4>Máx. de 8 letras</h4>
-                <img src="images/Exclamación.svg"/>
+                <h4 id="aviso">Máx. de 8 letras</h4>
+                <img id="signo" src="images/Exclamación.svg"/>
                 <button onclick = "agregarPalabraALista()" class="botonGuardar">Guardar y empezar</button>
                 <button class="botonCancelar" onclick="desaparecerElementos()">Cancelar</button>
             </section>
@@ -31,7 +31,7 @@
     </main>
     <script src="logica.js"></script>
 </body>
-<footer>
+<footer class="firma">
     Created, managed and produced by Agustin Eduardo Brambilla | All rigths reserved © 2022
 </footer>
 </html>

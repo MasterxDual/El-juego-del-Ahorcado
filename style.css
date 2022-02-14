@@ -1,0 +1,166 @@
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100vh;
+}
+
+#title {
+    position: absolute;
+    width: 800px;
+    height: 150px;
+    left: 500px;
+    top: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    color: #0A3871;
+}
+
+.img {
+    position: absolute;
+    width: 120px;
+    height: 48px;
+    left: 40px;
+    top: 40px;
+    background-position: #0A3871;
+}
+
+.botonIniciar {
+    position: absolute;
+    width: 317px;
+    height: 114px;
+    left: 530px;
+    top: 200px;
+    background: #0A3871;
+    border-radius: 24px;
+    padding: 24px;
+    font-size: 18px;
+    font-weight: normal;
+    text-align: center;
+    color: #FFFFFF;    
+}
+
+.botonAgregar {
+    position: absolute;
+    width: 280px;
+    height: 67px;
+    left: 869px;
+    top: 225px;
+    border: 1px solid #0A3871;
+    box-sizing: border-box;
+    border-radius: 24px;
+    font-size: 16px;
+    font-weight: normal;
+    text-align: center;
+    color:#0A3871
+}
+
+#campoTexto {
+    position: absolute;
+    width: 299px;
+    height: 48px;
+    left: 680px;
+    top: 365px;
+    font-weight: normal;
+    font-size: 32px;
+    color: #0A3871;
+}
+
+#aviso {
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    left: 660px;
+    top: 400px;
+    font-weight: normal;
+    font-size: 20px;
+    color: #495057;
+    opacity: 0.8;
+}
+
+#signo {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 630px;
+    top: 429px;
+    background-position: #495057;
+}
+
+.botonGuardar {
+    position: absolute;
+    width: 332px;
+    height: 67px;
+    left: 525px;
+    top: 465px;
+    background: #0A3871;
+    border-radius: 24px;
+    font-weight: normal;
+    font-size: 16px;
+    color: #FFFFFF;
+}
+
+.botonCancelar {
+    position: absolute;
+    width: 332px;
+    height: 67px;
+    left: 875px;
+    top: 465px;
+    background: #FFFFFF;
+    border: 1px solid #0A3871;
+    box-sizing: border-box;
+    border-radius: 24px;
+    font-weight: normal;
+    font-size: 16px;
+    color:#0A3871;
+}
+
+.botonJugar {
+    position: absolute;
+    width: 332px;
+    height: 67px;
+    left: 525px;
+    top: 700px;
+    background: #0A3871;
+    border-radius: 24px;
+    font-weight: normal;
+    font-size: 16px;
+    color: #FFFFFF;
+}
+
+.botonRendirse {
+    position: absolute;
+    width: 332px;
+    height: 67px;
+    left: 875px;
+    top: 700px;
+    background: #FFFFFF;
+    border: 1px solid #0A3871;
+    box-sizing: border-box;
+    border-radius: 24px;
+    font-weight: normal;
+    font-size: 16px;
+    color: #0A3871;
+
+}
+
+#inputLetra {
+    position: absolute;
+    width: 299px;
+    height: 48px;
+    left: 680px;
+    top: 620px;
+    font-weight: normal;
+    font-size: 32px;
+    color: #0A3871;
+}
+
+.firma {
+    position: absolute;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 32px;
+    font-style: italic;
+    color: #495057;
+}

@@ -1,4 +1,4 @@
-let palabras = ["TROTAR", "MEDICINA", "FUEGO", "AVESTRUZ"];
+let palabras = ["DRAGON", "MEDICINA", "FUEGO", "AVESTRUZ"];
 let palabraNuevaCampo = document.getElementById("campoTexto");
 let desktop1 = document.getElementById("desktop1");
 let desktop2 = document.getElementById("desktop2");
@@ -13,12 +13,12 @@ function agregarPalabraALista() {
     let palabraNueva = palabraNuevaCampo.value;
     let palabraNueva2 = palabraNueva.replace(/[^a-zA-Z]/g, "");
     palabras.push(palabraNueva2);
-    localStorage.setItem("Agustin", palabras); //Guarda la palabra nueva en el almacenamiento local (junto con el array);
+    localStorage.setItem("Ag", palabras); //Guarda la palabra nueva en el almacenamiento local (junto con el array);
 }
 
 //Carga la palabra nueva guardada anteriormente en el setItem (junto con el array);
 function cargarListaPalabras() {
-    let palabras_str = localStorage.getItem("Agustin"); 
+    let palabras_str = localStorage.getItem("Ag"); 
     palabras = palabras_str.split(","); //Divide la cadena a través del separador ",". Es decir, donde hay comas, el resultado es dividido en el array resultante. 
     palabras.pop();
     console.log(palabras);
@@ -26,7 +26,7 @@ function cargarListaPalabras() {
 
 //Para asegurarme de que no cargue algo cuando no haya agregado ninguna palabra
 function init() {
-    if(localStorage.getItem("Agustin") != null) {  
+    if(localStorage.getItem("Ag") != null) {  
         cargarListaPalabras();
     } 
 }
