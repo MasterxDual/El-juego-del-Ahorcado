@@ -5,8 +5,8 @@ let desktop2 = document.getElementById("desktop2");
 let desktop3y4 = document.getElementById("desktop3y4");
 let pantalla = document.querySelector("canvas");
 let pincel = pantalla.getContext("2d");
-var arrHayLetra = [];
-var arrNoHayLetra = [];
+let arrHayLetra = [];
+let arrNoHayLetra = [];
 
 //Agrega una palabra nueva escrita por el usuario;
 function agregarPalabraALista() {
@@ -312,9 +312,7 @@ function letrasPerdiste() {
 
 //Dibuja el mensaje cuando ganás el juego
 function letrasGanaste() {
-    var pantalla = document.querySelector("canvas");
-    var pincel = pantalla.getContext("2d");
-    var texto = "Ganaste, felicidades!";
+    let texto = "Ganaste, felicidades!";
     pincel.beginPath();
     pincel.font = "italic 30px Arial";
     pincel.fillStyle = "green";
